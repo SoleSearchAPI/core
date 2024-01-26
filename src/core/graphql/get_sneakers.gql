@@ -1,14 +1,13 @@
-query GetSneakers($limit: Int, $skip: Int) {
-  SneakerModels(limit: $limit, skip: $skip) {
-    name
-    date
-    images
-    orderPriority
-    isDeleted
-    _id
-    updatedAt
-    createdAt
-    _release {
+query GetSneakers($sortFilter: JSON, $perPage: Int, $page: Int) {
+  ReleasePagination(sort: $sortFilter, perPage: $perPage, page: $page) {
+    count
+    pageInfo {
+      currentPage
+      pageCount
+      hasNextPage
+    }
+    items {
+      _id
       title
       description
       date
@@ -19,6 +18,17 @@ query GetSneakers($limit: Int, $skip: Int) {
       }
       catalog {
         name
+      }
+      raffleLinks {
+        raffleId
+        link
+      }
+      raffles {
+        link
+        raffleWebsite {
+          name
+          logo
+        }
       }
       nickname
       imageUrls
