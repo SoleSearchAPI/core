@@ -1,0 +1,43 @@
+query GetSneakers($limit: Int, $skip: Int) {
+  SneakerModels(limit: $limit, skip: $skip) {
+    name
+    date
+    images
+    orderPriority
+    isDeleted
+    _id
+    updatedAt
+    createdAt
+    _release {
+      title
+      description
+      date
+      colorway
+      price
+      brand {
+        title
+      }
+      catalog {
+        name
+      }
+      nickname
+      imageUrls
+      resellUrls
+      resellsizes {
+        uri
+        lowPrice
+        highPrice
+        currencyUnit
+        sizeType
+        sizes {
+          size
+          price
+        }
+      }
+      buyLinks {
+        title
+        link
+      }
+    }
+  }
+}

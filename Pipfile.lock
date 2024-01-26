@@ -1,0 +1,38 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "c9f170f68f53aa820dc7a51cd80c1931f372cd70c10feb30df034d5f6f3fd0fa"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.12"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "graphql-core": {
+            "hashes": [
+                "sha256:06d2aad0ac723e35b1cb47885d3e5c45e956a53bc1b209a9fc5369007fe46676",
+                "sha256:5766780452bd5ec8ba133f8bf287dc92713e3868ddd83aee4faab9fc3e303dc3"
+            ],
+            "markers": "python_version >= '3.6' and python_version < '4'",
+            "version": "==3.2.3"
+        },
+        "sgqlc": {
+            "hashes": [
+                "sha256:89d468386a4ba4b5ade991623228b6fb0a25bea1f25643ccac130fb3ef565b72",
+                "sha256:be08857775aa3e65ef7b2c1f0cdcc65dd5794907b162b393c189187fee664558"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.7' and python_version < '4.0'",
+            "version": "==16.3"
+        }
+    },
+    "develop": {}
+}
