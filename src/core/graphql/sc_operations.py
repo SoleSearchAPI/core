@@ -1,16 +1,25 @@
-import sgqlc.types
 import sgqlc.operation
-import sc_schema
+import sgqlc.types
+
+import core.graphql.sc_schema as sc_schema
 
 _schema = sc_schema
 _schema_root = _schema.sc_schema
 
-__all__ = ('Operations',)
+__all__ = ("Operations",)
 
 
 def query_get_sneakers():
-    _op = sgqlc.operation.Operation(_schema_root.query_type, name='GetSneakers', variables=dict(limit=sgqlc.types.Arg(_schema.Int), skip=sgqlc.types.Arg(_schema.Int)))
-    _op_sneaker_models = _op.sneaker_models(limit=sgqlc.types.Variable('limit'), skip=sgqlc.types.Variable('skip'))
+    _op = sgqlc.operation.Operation(
+        _schema_root.query_type,
+        name="GetSneakers",
+        variables=dict(
+            limit=sgqlc.types.Arg(_schema.Int), skip=sgqlc.types.Arg(_schema.Int)
+        ),
+    )
+    _op_sneaker_models = _op.sneaker_models(
+        limit=sgqlc.types.Variable("limit"), skip=sgqlc.types.Variable("skip")
+    )
     _op_sneaker_models.name()
     _op_sneaker_models.date()
     _op_sneaker_models.images()
@@ -38,7 +47,9 @@ def query_get_sneakers():
     _op_sneaker_models__release_resellsizes.high_price()
     _op_sneaker_models__release_resellsizes.currency_unit()
     _op_sneaker_models__release_resellsizes.size_type()
-    _op_sneaker_models__release_resellsizes_sizes = _op_sneaker_models__release_resellsizes.sizes()
+    _op_sneaker_models__release_resellsizes_sizes = (
+        _op_sneaker_models__release_resellsizes.sizes()
+    )
     _op_sneaker_models__release_resellsizes_sizes.size()
     _op_sneaker_models__release_resellsizes_sizes.price()
     _op_sneaker_models__release_buy_links = _op_sneaker_models__release.buy_links()
