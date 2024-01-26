@@ -2,7 +2,7 @@ import sgqlc.types
 import sgqlc.types.datetime
 
 
-sneakercrush = sgqlc.types.Schema()
+sc_schema = sgqlc.types.Schema()
 
 
 
@@ -14,12 +14,12 @@ Boolean = sgqlc.types.Boolean
 Date = sgqlc.types.datetime.Date
 
 class DropFeedType(sgqlc.types.Enum):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __choices__ = ('RAFFLE', 'RESTOCK', 'SHOCK_DROP', 'SNKRS_PASS')
 
 
 class EnumCommentSubject_type(sgqlc.types.Enum):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __choices__ = ('Article', 'Post', 'Release')
 
 
@@ -28,11 +28,11 @@ Float = sgqlc.types.Float
 Int = sgqlc.types.Int
 
 class JSON(sgqlc.types.Scalar):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
 
 
 class MongoID(sgqlc.types.Scalar):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
 
 
 String = sgqlc.types.String
@@ -46,7 +46,7 @@ String = sgqlc.types.String
 # Output Objects and Interfaces
 ########################################################################
 class Article(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('title', 'content', 'date', 'image', 'link', 'source', 'tag', 'catalog', 'sneaker_model', 'featured', 'featured_order_priority', '_id', 'updated_at', 'created_at', 'comments', 'related')
     title = sgqlc.types.Field(String, graphql_name='title')
     content = sgqlc.types.Field(String, graphql_name='content')
@@ -90,7 +90,7 @@ class Article(sgqlc.types.Type):
 
 
 class ArticlePagination(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('count', 'items', 'page_info')
     count = sgqlc.types.Field(Int, graphql_name='count')
     items = sgqlc.types.Field(sgqlc.types.list_of(Article), graphql_name='items')
@@ -98,7 +98,7 @@ class ArticlePagination(sgqlc.types.Type):
 
 
 class Comment(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('comment', 'author', 'subject_id', 'subject_type', 'message', 'timestamp', '_id', '_comment', '_commentlike', 'likes', 'is_liked')
     comment = sgqlc.types.Field('Comment', graphql_name='comment', args=sgqlc.types.ArgDict((
         ('filter', sgqlc.types.Arg(JSON, graphql_name='filter', default=None)),
@@ -141,7 +141,7 @@ class Comment(sgqlc.types.Type):
 
 
 class CommentLike(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('user', 'comment', 'timestamp', 'is_deleted', '_id')
     user = sgqlc.types.Field('User', graphql_name='user', args=sgqlc.types.ArgDict((
         ('filter', sgqlc.types.Arg(JSON, graphql_name='filter', default=None)),
@@ -161,7 +161,7 @@ class CommentLike(sgqlc.types.Type):
 
 
 class CommentLikePagination(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('count', 'items', 'page_info')
     count = sgqlc.types.Field(Int, graphql_name='count')
     items = sgqlc.types.Field(sgqlc.types.list_of(CommentLike), graphql_name='items')
@@ -169,7 +169,7 @@ class CommentLikePagination(sgqlc.types.Type):
 
 
 class CommentPagination(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('count', 'items', 'page_info')
     count = sgqlc.types.Field(Int, graphql_name='count')
     items = sgqlc.types.Field(sgqlc.types.list_of(Comment), graphql_name='items')
@@ -177,7 +177,7 @@ class CommentPagination(sgqlc.types.Type):
 
 
 class DropFeed(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('type', '_id', 'updated_at', 'created_at')
     type = sgqlc.types.Field(String, graphql_name='type')
     _id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='_id')
@@ -186,7 +186,7 @@ class DropFeed(sgqlc.types.Type):
 
 
 class DropFeedRaffle(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('title', 'url', 'image_url', 'closes', 'raffle_type', 'store', 'type', '_id', 'updated_at', 'created_at')
     title = sgqlc.types.Field(String, graphql_name='title')
     url = sgqlc.types.Field(String, graphql_name='url')
@@ -201,14 +201,14 @@ class DropFeedRaffle(sgqlc.types.Type):
 
 
 class DropFeedRaffleStore(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('title', 'image_url')
     title = sgqlc.types.Field(String, graphql_name='title')
     image_url = sgqlc.types.Field(String, graphql_name='imageUrl')
 
 
 class DropFeedRestock(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('title', 'url', 'image_url', 'site', 'sizes', 'type', '_id', 'updated_at', 'created_at')
     title = sgqlc.types.Field(String, graphql_name='title')
     url = sgqlc.types.Field(String, graphql_name='url')
@@ -222,7 +222,7 @@ class DropFeedRestock(sgqlc.types.Type):
 
 
 class DropFeedShockDrop(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('content', 'type', '_id', 'updated_at', 'created_at')
     content = sgqlc.types.Field(String, graphql_name='content')
     type = sgqlc.types.Field(String, graphql_name='type')
@@ -232,7 +232,7 @@ class DropFeedShockDrop(sgqlc.types.Type):
 
 
 class DropFeedSnkrsPass(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('title', 'url', 'image_url', 'type', '_id', 'updated_at', 'created_at')
     title = sgqlc.types.Field(String, graphql_name='title')
     url = sgqlc.types.Field(String, graphql_name='url')
@@ -244,7 +244,7 @@ class DropFeedSnkrsPass(sgqlc.types.Type):
 
 
 class Image(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('author', 'url', 'is_deleted', '_id')
     author = sgqlc.types.Field('User', graphql_name='author', args=sgqlc.types.ArgDict((
         ('filter', sgqlc.types.Arg(JSON, graphql_name='filter', default=None)),
@@ -258,7 +258,7 @@ class Image(sgqlc.types.Type):
 
 
 class ImageUrl(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('original', 'sm', 'md', 'lg', 'xl')
     original = sgqlc.types.Field(String, graphql_name='original')
     sm = sgqlc.types.Field(String, graphql_name='sm')
@@ -268,7 +268,7 @@ class ImageUrl(sgqlc.types.Type):
 
 
 class Keyword(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('value', 'last_cleaned_at', '_id')
     value = sgqlc.types.Field(String, graphql_name='value')
     last_cleaned_at = sgqlc.types.Field(Float, graphql_name='last_cleaned_at')
@@ -276,7 +276,7 @@ class Keyword(sgqlc.types.Type):
 
 
 class KeywordPagination(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('count', 'items', 'page_info')
     count = sgqlc.types.Field(Int, graphql_name='count')
     items = sgqlc.types.Field(sgqlc.types.list_of(Keyword), graphql_name='items')
@@ -284,7 +284,7 @@ class KeywordPagination(sgqlc.types.Type):
 
 
 class ModelBrand(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('title', '_id', '_sneaker', '_release', 'sneakers')
     title = sgqlc.types.Field(String, graphql_name='title')
     _id = sgqlc.types.Field(sgqlc.types.non_null(MongoID), graphql_name='_id')
@@ -313,7 +313,7 @@ class ModelBrand(sgqlc.types.Type):
 
 
 class ModelTag(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('title', 'views', '_id', '_article', '_release', '_posttag')
     title = sgqlc.types.Field(String, graphql_name='title')
     views = sgqlc.types.Field(Float, graphql_name='views')
@@ -343,7 +343,7 @@ class ModelTag(sgqlc.types.Type):
 
 
 class Mutation(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('update_user', 'delete_user', 'restore_user', 'create_image', 'update_image', 'delete_image', 'restore_image', 'create_raffle', 'update_raffle', 'delete_raffle', 'restore_raffle', 'create_sneaker', 'update_sneaker', 'delete_sneaker', 'restore_sneaker', 'create_article', 'update_article', 'delete_article', 'restore_article', 'create_release', 'update_release', 'delete_release', 'restore_release', 'create_comment', 'update_comment', 'delete_comment', 'create_sneaker_model', 'update_sneaker_model', 'delete_sneaker_model', 'restore_sneaker_model', 'create_post_tag', 'update_post_tag', 'delete_post_tag', 'restore_post_tag', 'create_post', 'update_post', 'delete_post', 'create_notification', 'update_notification', 'delete_notification', 'restore_notification', 'create_model_brand', 'update_model_brand', 'delete_model_brand', 'restore_model_brand', 'create_model_tag', 'update_model_tag', 'delete_model_tag', 'restore_model_tag', 'create_keyword', 'update_keyword', 'delete_keyword', 'restore_keyword', 'create_drop_feed', 'update_drop_feed', 'delete_drop_feed', 'restore_drop_feed', 'create_drop_feed_raffle', 'update_drop_feed_raffle', 'delete_drop_feed_raffle', 'restore_drop_feed_raffle', 'create_drop_feed_restock', 'update_drop_feed_restock', 'delete_drop_feed_restock', 'restore_drop_feed_restock', 'create_drop_feed_shock_drop', 'update_drop_feed_shock_drop', 'delete_drop_feed_shock_drop', 'restore_drop_feed_shock_drop', 'create_drop_feed_snkrs_pass', 'update_drop_feed_snkrs_pass', 'delete_drop_feed_snkrs_pass', 'restore_drop_feed_snkrs_pass', 'auth', 'auth_with_role', 'update_user_password', 'restore_password_by_email', 'restore_password_confirm', 'register_user', 'set_admin', 'dismiss_admin', 'set_editor', 'dismiss_editor', 'update_self', 'delete_self', 'set_device_token', 'set_purchased', 'action_confirm', 'sneaker_add_view', 'favorite', 'unfavorite', 'follow', 'follows', 'unfollow', 'popular_add_view', 'like', 'dislike', 'like_comment', 'dislike_comment', 'add_firebase_comment', 'set_drop_feed_notification_settings')
     update_user = sgqlc.types.Field('User', graphql_name='updateUser', args=sgqlc.types.ArgDict((
         ('filter', sgqlc.types.Arg(JSON, graphql_name='filter', default=None)),
@@ -778,7 +778,7 @@ class Mutation(sgqlc.types.Type):
 
 
 class Notification(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('user', 'header', 'message', 'sender_name', 'data', 'timestamp', '_id')
     user = sgqlc.types.Field('User', graphql_name='user', args=sgqlc.types.ArgDict((
         ('filter', sgqlc.types.Arg(JSON, graphql_name='filter', default=None)),
@@ -795,7 +795,7 @@ class Notification(sgqlc.types.Type):
 
 
 class NotificationPagination(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('count', 'items', 'page_info')
     count = sgqlc.types.Field(Int, graphql_name='count')
     items = sgqlc.types.Field(sgqlc.types.list_of(Notification), graphql_name='items')
@@ -803,7 +803,7 @@ class NotificationPagination(sgqlc.types.Type):
 
 
 class PaginationInfo(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('current_page', 'per_page', 'page_count', 'item_count', 'has_next_page', 'has_previous_page')
     current_page = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='currentPage')
     per_page = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='perPage')
@@ -814,7 +814,7 @@ class PaginationInfo(sgqlc.types.Type):
 
 
 class Post(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('content', 'timestamp', 'image', 'author', 'is_deleted', '_id', 'updated_at', 'created_at', '_posttag', '_postlike', 'comments', 'tags', 'likes', 'is_liked')
     content = sgqlc.types.Field(String, graphql_name='content')
     timestamp = sgqlc.types.Field(Float, graphql_name='timestamp')
@@ -865,7 +865,7 @@ class Post(sgqlc.types.Type):
 
 
 class PostLike(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('user', 'post', 'timestamp', 'is_deleted', '_id')
     user = sgqlc.types.Field('User', graphql_name='user', args=sgqlc.types.ArgDict((
         ('filter', sgqlc.types.Arg(JSON, graphql_name='filter', default=None)),
@@ -885,7 +885,7 @@ class PostLike(sgqlc.types.Type):
 
 
 class PostLikePagination(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('count', 'items', 'page_info')
     count = sgqlc.types.Field(Int, graphql_name='count')
     items = sgqlc.types.Field(sgqlc.types.list_of(PostLike), graphql_name='items')
@@ -893,7 +893,7 @@ class PostLikePagination(sgqlc.types.Type):
 
 
 class PostPagination(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('count', 'items', 'page_info')
     count = sgqlc.types.Field(Int, graphql_name='count')
     items = sgqlc.types.Field(sgqlc.types.list_of(Post), graphql_name='items')
@@ -901,7 +901,7 @@ class PostPagination(sgqlc.types.Type):
 
 
 class PostTag(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('post', 'tag', '_id')
     post = sgqlc.types.Field(Post, graphql_name='post', args=sgqlc.types.ArgDict((
         ('filter', sgqlc.types.Arg(JSON, graphql_name='filter', default=None)),
@@ -919,7 +919,7 @@ class PostTag(sgqlc.types.Type):
 
 
 class PostTagPagination(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('count', 'items', 'page_info')
     count = sgqlc.types.Field(Int, graphql_name='count')
     items = sgqlc.types.Field(sgqlc.types.list_of(PostTag), graphql_name='items')
@@ -927,7 +927,7 @@ class PostTagPagination(sgqlc.types.Type):
 
 
 class Query(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('user', 'users', 'image', 'images', 'raffle', 'raffles', 'sneaker', 'sneakers', 'sneaker_pagination', 'article', 'articles', 'article_pagination', 'release', 'releases', 'comment', 'comments', 'comment_pagination', 'sneaker_model', 'sneaker_models', 'sneaker_model_pagination', 'post_tag', 'post_tags', 'post_tag_pagination', 'post', 'posts', 'post_pagination', 'notification', 'notifications', 'notification_pagination', 'model_brand', 'model_brands', 'model_tag', 'model_tags', 'keyword', 'keywords', 'keyword_pagination', 'drop_feed', 'drop_feeds', 'drop_feed_raffle', 'drop_feed_raffles', 'drop_feed_restock', 'drop_feed_restocks', 'drop_feed_shock_drop', 'drop_feed_shock_drops', 'drop_feed_snkrs_pass', 'drop_feed_snkrs_passs', 'get_self_info', 'self', 'release_pagination', 'search_release', 'get_my_favorites', 'get_my_follows', 'get_popular', 'get_popular_current', 'get_popular_both', 'post_by_tag_pagination', 'notification_by_self_pagination', 'get_drop_feeds', 'get_drop_feed_notification_settings')
     user = sgqlc.types.Field('User', graphql_name='User', args=sgqlc.types.ArgDict((
         ('filter', sgqlc.types.Arg(JSON, graphql_name='filter', default=None)),
@@ -1297,7 +1297,7 @@ class Query(sgqlc.types.Type):
 
 
 class Raffle(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('name', 'logo', '_id')
     name = sgqlc.types.Field(String, graphql_name='name')
     logo = sgqlc.types.Field(String, graphql_name='logo')
@@ -1305,14 +1305,14 @@ class Raffle(sgqlc.types.Type):
 
 
 class RaffleLink(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('link', 'raffle_website')
     link = sgqlc.types.Field(String, graphql_name='link')
     raffle_website = sgqlc.types.Field(Raffle, graphql_name='raffleWebsite')
 
 
 class Release(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('title', 'description', 'date', 'colorway', 'price', 'brand', 'tag', 'catalog', 'sneaker_model', 'raffle_links', 'nickname', 'image_urls', 'resell_urls', 'resellsizes', 'buy_links', 'has_unknown_day', 'order_priority', 'search_string', 'featured', 'featured_order_priority', 'is_deleted', '_id', 'updated_at', 'created_at', '_userfavorite', 'comments', 'raffles', 'related', 'is_favorite')
     title = sgqlc.types.Field(String, graphql_name='title')
     description = sgqlc.types.Field(String, graphql_name='description')
@@ -1380,7 +1380,7 @@ class Release(sgqlc.types.Type):
 
 
 class ReleaseBuyLinks(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('link', 'title', '_id')
     link = sgqlc.types.Field(String, graphql_name='link')
     title = sgqlc.types.Field(String, graphql_name='title')
@@ -1388,7 +1388,7 @@ class ReleaseBuyLinks(sgqlc.types.Type):
 
 
 class ReleasePagination(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('count', 'items', 'page_info')
     count = sgqlc.types.Field(Int, graphql_name='count')
     items = sgqlc.types.Field(sgqlc.types.list_of(Release), graphql_name='items')
@@ -1396,7 +1396,7 @@ class ReleasePagination(sgqlc.types.Type):
 
 
 class ReleaseRaffleLinks(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('raffle_id', 'link', '_id')
     raffle_id = sgqlc.types.Field(String, graphql_name='raffleId')
     link = sgqlc.types.Field(String, graphql_name='link')
@@ -1404,7 +1404,7 @@ class ReleaseRaffleLinks(sgqlc.types.Type):
 
 
 class ReleaseResellsizes(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('uri', 'low_price', 'high_price', 'currency_unit', 'size_type', 'sizes', '_id')
     uri = sgqlc.types.Field(String, graphql_name='uri')
     low_price = sgqlc.types.Field(Float, graphql_name='lowPrice')
@@ -1416,7 +1416,7 @@ class ReleaseResellsizes(sgqlc.types.Type):
 
 
 class ReleaseResellsizesSizes(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('size', 'price', '_id')
     size = sgqlc.types.Field(Float, graphql_name='size')
     price = sgqlc.types.Field(Float, graphql_name='price')
@@ -1424,7 +1424,7 @@ class ReleaseResellsizesSizes(sgqlc.types.Type):
 
 
 class Sneaker(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('name', 'description', 'brand', 'date', 'colorways', 'views', 'is_deleted', '_id', 'updated_at', 'created_at', '_article', '_release', 'image')
     name = sgqlc.types.Field(String, graphql_name='name')
     description = sgqlc.types.Field(String, graphql_name='description')
@@ -1460,7 +1460,7 @@ class Sneaker(sgqlc.types.Type):
 
 
 class SneakerColorways(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('image', 'links', 'nickname', '_id')
     image = sgqlc.types.Field(String, graphql_name='image')
     links = sgqlc.types.Field(sgqlc.types.list_of('SneakerColorwaysLinks'), graphql_name='links')
@@ -1469,7 +1469,7 @@ class SneakerColorways(sgqlc.types.Type):
 
 
 class SneakerColorwaysLinks(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('url', 'title', '_id')
     url = sgqlc.types.Field(String, graphql_name='url')
     title = sgqlc.types.Field(String, graphql_name='title')
@@ -1477,7 +1477,7 @@ class SneakerColorwaysLinks(sgqlc.types.Type):
 
 
 class SneakerModel(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('name', 'date', 'images', 'order_priority', 'is_deleted', '_id', 'updated_at', 'created_at', '_article', '_release', '_userfollow')
     name = sgqlc.types.Field(String, graphql_name='name')
     date = sgqlc.types.Field(JSON, graphql_name='date')
@@ -1512,7 +1512,7 @@ class SneakerModel(sgqlc.types.Type):
 
 
 class SneakerModelPagination(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('count', 'items', 'page_info')
     count = sgqlc.types.Field(Int, graphql_name='count')
     items = sgqlc.types.Field(sgqlc.types.list_of(SneakerModel), graphql_name='items')
@@ -1520,7 +1520,7 @@ class SneakerModelPagination(sgqlc.types.Type):
 
 
 class SneakerPagination(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('count', 'items', 'page_info')
     count = sgqlc.types.Field(Int, graphql_name='count')
     items = sgqlc.types.Field(sgqlc.types.list_of(Sneaker), graphql_name='items')
@@ -1528,7 +1528,7 @@ class SneakerPagination(sgqlc.types.Type):
 
 
 class User(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('username', 'email', 'image', 'device_token', 'last_signed_in_at', 'badge', 'currency', 'role', 'is_purchased', 'is_deleted', '_id', 'updated_at', 'created_at', '_image', '_comment', '_userfavorite', '_userfollow', '_postlike', '_commentlike', '_post', '_notification', 'favorites')
     username = sgqlc.types.Field(String, graphql_name='username')
     email = sgqlc.types.Field(JSON, graphql_name='email')
@@ -1603,7 +1603,7 @@ class User(sgqlc.types.Type):
 
 
 class UserFavorite(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('user', 'sneaker', 'timestamp', 'is_deleted', '_id')
     user = sgqlc.types.Field(User, graphql_name='user', args=sgqlc.types.ArgDict((
         ('filter', sgqlc.types.Arg(JSON, graphql_name='filter', default=None)),
@@ -1623,7 +1623,7 @@ class UserFavorite(sgqlc.types.Type):
 
 
 class UserFollow(sgqlc.types.Type):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __field_names__ = ('user', 'sneaker', 'timestamp', 'is_deleted', '_id')
     user = sgqlc.types.Field(User, graphql_name='user', args=sgqlc.types.ArgDict((
         ('filter', sgqlc.types.Arg(JSON, graphql_name='filter', default=None)),
@@ -1647,12 +1647,12 @@ class UserFollow(sgqlc.types.Type):
 # Unions
 ########################################################################
 class DropFeedUnion(sgqlc.types.Union):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __types__ = (DropFeedRaffle, DropFeedRestock, DropFeedShockDrop, DropFeedSnkrsPass)
 
 
 class PopularUnion(sgqlc.types.Union):
-    __schema__ = sneakercrush
+    __schema__ = sc_schema
     __types__ = (Release, Article)
 
 
@@ -1660,7 +1660,7 @@ class PopularUnion(sgqlc.types.Union):
 ########################################################################
 # Schema Entry Points
 ########################################################################
-sneakercrush.query_type = Query
-sneakercrush.mutation_type = Mutation
-sneakercrush.subscription_type = None
+sc_schema.query_type = Query
+sc_schema.mutation_type = Mutation
+sc_schema.subscription_type = None
 
