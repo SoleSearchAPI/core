@@ -1,7 +1,14 @@
+from datetime import datetime
 from enum import Enum
 from typing import List
 
 from pydantic import BaseModel
+
+
+class SiteMapLink(BaseModel):
+    url: str
+    scraped: bool
+    lastScraped: datetime
 
 
 class Audience(str, Enum):
