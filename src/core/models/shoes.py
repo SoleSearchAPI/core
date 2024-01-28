@@ -1,5 +1,6 @@
 import re
 from datetime import datetime
+from typing import List
 
 from pydantic import BaseModel
 
@@ -11,7 +12,7 @@ class Shoe(BaseModel):
     sku: str | None  # Stock Keeping Unit, format typically differs by brand
     name: str | None  # Product name
     colorway: str | None  # Colorway of the shoe
-    audience: Audience | None  # See src.models.details.Audience
+    audience: List[Audience] | None  # See src.models.details.Audience
     releaseDate: datetime | None  # Release date in epoch time (milliseconds)
     released: bool | None  # true if product is available yet, false otherwise
     images: Images | None  # See src.models.details.Images
