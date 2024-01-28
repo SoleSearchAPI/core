@@ -22,26 +22,26 @@ class Audience(str, Enum):
 
 
 class Links(BaseModel):
-    retail: str = None  # Link to the retail page
-    stockx: str = None  # Link to the StockX listing
-    goat: str = None  # Link to the GOAT listing
+    retail: str | None = None  # Link to the retail page
+    stockx: str | None = None  # Link to the StockX listing
+    goat: str | None = None  # Link to the GOAT listing
 
 
 class Prices(BaseModel):
-    retail: float = None  # The brand's price / MSRP
-    stockx: float = None  # Current price on stockX
-    goat: float = None  # Current price on GOAT
+    retail: float | None = None  # The brand's price / MSRP
+    stockx: float | None = None  # Current price on stockX
+    goat: float | None = None  # Current price on GOAT
 
 
 class Images(BaseModel):
-    original: str = None  # Link to the head-on, full size image
+    original: str | None = None  # Link to the head-on, full size image
     alternateAngles: List[
         str
-    ] = None  # Links to other angles of the product, if available
+    ] | None = None  # Links to other angles of the product, if available
 
 
 class Sizes(BaseModel):
     # sizes stores all available sizes converted to US Men's.
     # Methods are provided for converting to other sizes.
     # If a size is not available, it is not included in the list.
-    sizes: List[int] = None
+    sizes: List[int] | None = None

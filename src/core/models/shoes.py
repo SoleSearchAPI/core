@@ -21,9 +21,9 @@ class Shoe(BaseModel):
     description: str | None  # Long-form product description
     dateAdded: datetime | None  # The date the shoe was added to the DB. For internal use only.
 
-    def validate(self) -> None:
-        """Validation will vary by brand, and should be implemented in each brand's respective class."""
-        raise NotImplementedError("Validation not implemented for this brand.")
+    # def validate(self) -> None:
+    #     """Validation will vary by brand, and should be implemented in each brand's respective class."""
+    #     raise NotImplementedError("Validation not implemented for this brand.")
 
 
 # sku: Usually of the form (ABC123-456) for Nike
