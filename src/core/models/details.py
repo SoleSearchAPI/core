@@ -32,7 +32,7 @@ class Prices(BaseModel):
     retail: float | None = None  # The brand's price / MSRP
     stockx: float | None = None  # Current price on stockX
     goat: float | None = None  # Current price on GOAT
-    stadium_goods: dict | None = None  # Prices on Stadium Goods (per-size pricing)
+    stadium_goods: float | dict | list | None = None  # Prices on Stadium Goods (per-size pricing)
 
 
 class Images(BaseModel):

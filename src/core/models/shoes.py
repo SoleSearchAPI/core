@@ -20,7 +20,6 @@ class Shoe(BaseModel):
     prices: Prices | None = None  # See src.models.details.Prices
     sizes: Sizes | None = None  # See src.models.details.Sizes
     description: str | None = None  # Long-form product description
-    dateAdded: datetime | None = None  # The date the shoe was added to the DB. For internal use only.
 
     # def validate(self) -> None:
     #     """Validation will vary by brand, and should be implemented in each brand's respective class."""
