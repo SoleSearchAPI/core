@@ -26,6 +26,9 @@ class Shoe(BaseModel):
     #     raise NotImplementedError("Validation not implemented for this brand.")
 
 
+class StadiumGoods(Shoe):
+    stadiumGoodsId: str = None  # The stadiumgoods.com id in the Redux state
+
 # sku: Usually of the form (ABC123-456) for Nike
 # brand: Brand or collaborator if product is a collaboration, eg 'Jordan' or 'Off-White'
 # name: Product name (generally includes title, subtitle, and colorway)
