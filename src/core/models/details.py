@@ -25,12 +25,14 @@ class Links(BaseModel):
     retail: str | None = None  # Link to the retail page
     stockx: str | None = None  # Link to the StockX listing
     goat: str | None = None  # Link to the GOAT listing
+    stadium_goods: str | None = None  # Link to the Stadium Goods listing
 
 
 class Prices(BaseModel):
     retail: float | None = None  # The brand's price / MSRP
     stockx: float | None = None  # Current price on stockX
     goat: float | None = None  # Current price on GOAT
+    stadium_goods: dict | None = None  # Prices on Stadium Goods (per-size pricing)
 
 
 class Images(BaseModel):
