@@ -8,19 +8,19 @@ from core.models.details import Audience, Images, Links, Prices, Sizes
 
 
 class Shoe(BaseModel):
-    brand: str | None  # The shoe manufacturer
-    sku: str | None  # Stock Keeping Unit, format typically differs by brand
-    name: str | None  # Product name
-    colorway: str | None  # Colorway of the shoe
-    audience: List[Audience] | None  # See src.models.details.Audience
-    releaseDate: datetime | None  # Release date in epoch time (milliseconds)
-    released: bool | None  # true if product is available yet, false otherwise
-    images: Images | None  # See src.models.details.Images
-    links: Links | None  # See src.models.details.Links
-    prices: Prices | None  # See src.models.details.Prices
-    sizes: Sizes | None  # See src.models.details.Sizes
-    description: str | None  # Long-form product description
-    dateAdded: datetime | None  # The date the shoe was added to the DB. For internal use only.
+    brand: str | None = None  # The shoe manufacturer
+    sku: str | None = None  # Stock Keeping Unit, format typically differs by brand
+    name: str | None = None  # Product name
+    colorway: str | None = None  # Colorway of the shoe
+    audience: List[Audience] | None = None  # See src.models.details.Audience
+    releaseDate: datetime | None = None  # Release date in epoch time (milliseconds)
+    released: bool | None = None  # true if product is available yet, false otherwise
+    images: Images | None = None  # See src.models.details.Images
+    links: Links | None = None  # See src.models.details.Links
+    prices: Prices | None = None  # See src.models.details.Prices
+    sizes: Sizes | None = None  # See src.models.details.Sizes
+    description: str | None = None  # Long-form product description
+    dateAdded: datetime | None = None  # The date the shoe was added to the DB. For internal use only.
 
     # def validate(self) -> None:
     #     """Validation will vary by brand, and should be implemented in each brand's respective class."""
