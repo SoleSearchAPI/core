@@ -30,9 +30,11 @@ class Links(BaseModel):
 
 class Prices(BaseModel):
     retail: float | None = None  # The brand's price / MSRP
-    stockx: float | None = None  # Current price on stockX
-    goat: float | None = None  # Current price on GOAT
-    stadium_goods: float | dict | list | None = None  # Prices on Stadium Goods (per-size pricing)
+    stockx: float | dict | list | None = None  # Current price on stockX
+    goat: float | dict | list | None = None  # Current price on GOAT
+    stadium_goods: float | dict | list | None = (
+        None  # Prices on Stadium Goods (per-size pricing)
+    )
 
 
 class Images(BaseModel):
@@ -46,4 +48,4 @@ class Sizes(BaseModel):
     # sizes stores all available sizes converted to US Men's.
     # Methods are provided for converting to other sizes.
     # If a size is not available, it is not included in the list.
-    sizes: List[int] | None = None
+    sizes: List[str] | None = None
