@@ -4,7 +4,7 @@ from typing import List
 
 from pydantic import BaseModel
 
-from core.models.details import Audience, Images, Links, Prices, Sizes
+from core.models.details import Audience, Images, Links, Prices
 
 
 class Shoe(BaseModel):
@@ -18,7 +18,7 @@ class Shoe(BaseModel):
     images: Images | None = None  # See src.models.details.Images
     links: Links | None = None  # See src.models.details.Links
     prices: Prices | None = None  # See src.models.details.Prices
-    sizes: Sizes | None = None  # See src.models.details.Sizes
+    sizes: List[float] | None = None  # List of available sizes, in US Men's
     description: str | None = None  # Long-form product description
 
     # def validate(self) -> None:
@@ -28,6 +28,7 @@ class Shoe(BaseModel):
 
 class StadiumGoods(Shoe):
     stadiumGoodsId: str = None  # The stadiumgoods.com id in the Redux state
+
 
 # sku: Usually of the form (ABC123-456) for Nike
 # brand: Brand or collaborator if product is a collaboration, eg 'Jordan' or 'Off-White'
