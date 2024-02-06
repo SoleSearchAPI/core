@@ -1,14 +1,28 @@
 from datetime import datetime
 from enum import Enum
-from typing import List
+from typing import List, Optional
 
+from beanie import Document, Indexed
 from pydantic import BaseModel
 
 
-class SiteMapLink(BaseModel):
-    url: str
-    scraped: bool
+class SiteMapLink(Document):
+    def __init__(
+        self,
+        url: str,
+        lastScraped: datetime,
+        lastSeenOnSitemap: datetime,
+        scraped: bool,
+    ):
+        self.url = url
+        self.lastScraped = lastScraped
+        self.lastSeenOnSitemap = lastSeenOnSitemap
+        self.scraped = scraped
+
+    url: Indexed(str, unique=True)
     lastScraped: datetime
+    lastSeenOnSitemap: datetime
+    scraped: bool
 
 
 class Audience(str, Enum):
@@ -39,9 +53,9 @@ class Prices(BaseModel):
 
 class Images(BaseModel):
     original: str | None = None  # Link to the head-on, full size image
-    alternateAngles: List[
-        str
-    ] | None = None  # Links to other angles of the product, if available
+    alternateAngles: List[str] | None = (
+        None  # Links to other angles of the product, if available
+    )
 
 
 class Sizes(BaseModel):

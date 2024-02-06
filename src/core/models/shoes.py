@@ -1,32 +1,55 @@
 import re
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
-from pydantic import BaseModel
+from beanie import Document, Indexed
 
 from core.models.details import Audience, Images, Links, Prices
 
 
-class Shoe(BaseModel):
-    brand: str | None = None  # The shoe manufacturer
-    sku: str | None = None  # Stock Keeping Unit, format typically differs by brand
-    name: str | None = None  # Product name
-    colorway: str | None = None  # Colorway of the shoe
-    audience: List[Audience] | None = None  # See src.models.details.Audience
-    releaseDate: datetime | None = None  # Release date in epoch time (milliseconds)
-    released: bool | None = None  # true if product is available yet, false otherwise
-    images: Images | None = None  # See src.models.details.Images
-    links: Links | None = None  # See src.models.details.Links
-    prices: Prices | None = None  # See src.models.details.Prices
-    sizes: List[float] | None = None  # List of available sizes, in US Men's
-    description: str | None = None  # Long-form product description
+class Sneaker(Document):
+    """
+    Represents information about a shoe.
 
-    # def validate(self) -> None:
-    #     """Validation will vary by brand, and should be implemented in each brand's respective class."""
-    #     raise NotImplementedError("Validation not implemented for this brand.")
+    Attributes:
+    - brand (Optional[str]): The shoe manufacturer.
+    - sku (Indexed[str]): Stock Keeping Unit, format typically differs by retailer.
+    - name (Optional[str]): Product name.
+    - colorway (Optional[str]): Colorway of the shoe.
+    - audience (Optional[List[Audience]]): See src.models.details.Audience.
+    - releaseDate (Optional[datetime]): Release date as datetime, which is converted to a native MongoDB date type.
+    - released (Optional[bool]): Whether the product has been released yet.
+    - images (Optional[Images]): See src.models.details.Images.
+    - links (Optional[Links]): See src.models.details.Links.
+    - prices (Optional[Prices]): See src.models.details.Prices.
+    - sizes (Optional[List[float]]): List of available sizes, in US Men's.
+    - description (Optional[str]): Long-form product description.
+    """
+
+    brand: Optional[str] = None
+    sku: Indexed(str, unique=True)
+    name: Optional[str] = None
+    colorway: Optional[str] = None
+    audience: Optional[List[Audience]] = None
+    releaseDate: Optional[datetime] = None
+    released: Optional[bool] = None
+    images: Optional[Images] = None
+    links: Optional[Links] = None
+    prices: Optional[Prices] = None
+    sizes: Optional[List[float]] = None
+    description: Optional[str] = None
+
+    class Settings:
+        name = "sneakers"
+        keep_nulls = True
+        # bson_encoders = {}
+
+    def validate(self) -> None:
+        """Validation will vary by brand, and should be implemented in each brand's respective class."""
+        raise NotImplementedError("Validation not implemented for this brand.")
 
 
-class StadiumGoods(Shoe):
+class StadiumGoods(Sneaker):
     stadiumGoodsId: str = None  # The stadiumgoods.com id in the Redux state
 
 
@@ -35,7 +58,7 @@ class StadiumGoods(Shoe):
 # name: Product name (generally includes title, subtitle, and colorway)
 
 
-class Nike(Shoe):
+class Nike(Sneaker):
     threadId: str = None  # The Nike.com threadId in the React state
     productId: str = None  # The Nike.com productId in the React state
     silhouette: str = None  # Silhoutte of the shoe (eg 'Jordan 1 High', 'Jordan 6')
@@ -52,7 +75,7 @@ class Nike(Shoe):
 # productId: The id of this specific colorway
 
 
-class Puma(Shoe):
+class Puma(Sneaker):
     masterId: str  # The Puma.com masterId in the Next.js state
     productId: str  # The Puma.com productId in the Next.js state
 
@@ -64,5 +87,5 @@ class Puma(Shoe):
             raise ValueError(f"Puma SKU '{self.sku}' is invalid.")
 
 
-class Adidas(Shoe):
+class Adidas(Sneaker):
     pass

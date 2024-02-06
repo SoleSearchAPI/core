@@ -10,7 +10,7 @@ description = "Core package for SoleSearch"
 authors = [
   { name="Peter Rauscher", email="peter@peterrauscher.com" },
 ]
-dependencies = ["sgqlc"]
+dependencies = ["sgqlc", "beanie"]
 
 [tool.hatch.version]
 path = "src/core/__about__.py"
