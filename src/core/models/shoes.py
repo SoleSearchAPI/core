@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import List, Optional
 
 from beanie import Document, Indexed
+from pymongo import DESCENDING, IndexModel
 
 from core.models.details import Audience, Images, Links, Prices
 
@@ -27,7 +28,7 @@ class Sneaker(Document):
     """
 
     brand: Optional[str] = None
-    sku: Indexed(str, unique=True)
+    sku: str
     name: Optional[str] = None
     colorway: Optional[str] = None
     audience: Optional[List[Audience]] = None
@@ -42,6 +43,7 @@ class Sneaker(Document):
     class Settings:
         name = "sneakers"
         keep_nulls = True
+        indexes = [IndexModel([("sku", DESCENDING)], unique=True)]
         # bson_encoders = {}
 
     def validate(self) -> None:
