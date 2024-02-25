@@ -51,4 +51,8 @@ class Sneaker(Document):
     class Settings:
         name = "sneakers"
         keep_nulls = True
-        indexes = [IndexModel([("sku", DESCENDING)], unique=True)]
+        indexes = [
+            IndexModel([("sku", DESCENDING)]),
+            IndexModel([("stockxId", DESCENDING)]),
+            IndexModel([("stadiumGoodsId", DESCENDING)]),
+        ]
