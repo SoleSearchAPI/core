@@ -17,7 +17,17 @@ class SiteMapLink(Document):
 
     class Settings:
         name = os.environ.get("SOLESEARCH_STOCKX_LINKS_COLLECTION", "stockx-links")
-        indexes = [IndexModel([("url", ASCENDING)])]
+        indexes = [
+            IndexModel([("url", ASCENDING)]),
+            IndexModel(
+                [
+                    ("scraped", ASCENDING),
+                    ("isSneaker", ASCENDING),
+                    ("error", ASCENDING),
+                ],
+                name="scraped_1_isSneaker_1_error_1",
+            ),
+        ]
 
 
 class Audience(str, Enum):
