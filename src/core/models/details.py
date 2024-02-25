@@ -13,6 +13,7 @@ class SiteMapLink(Document):
     lastSeenOnSitemap: datetime
     scraped: bool
     isSneaker: Optional[bool] = None
+    error: Optional[bool] = None
 
     class Settings:
         name = os.environ.get("SOLESEARCH_STOCKX_LINKS_COLLECTION", "stockx-links")
