@@ -1,31 +1,38 @@
+import os
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Any, List, Optional
 
-from beanie import Document, Indexed
+from beanie import Document
 from pydantic import BaseModel
+from pymongo import ASCENDING, IndexModel
 
 
 class SiteMapLink(Document):
-    def __init__(
-        self,
-        url: str,
-        lastScraped: datetime,
-        lastSeenOnSitemap: datetime,
-        scraped: bool,
-    ):
-        self.url = url
-        self.lastScraped = lastScraped
-        self.lastSeenOnSitemap = lastSeenOnSitemap
-        self.scraped = scraped
-
-    url: Indexed(str, unique=True)
-    lastScraped: datetime
+    url: str
     lastSeenOnSitemap: datetime
     scraped: bool
+    isSneaker: Optional[bool] = None
+
+    class Settings:
+        name = os.environ.get("SOLESEARCH_STOCKX_LINKS_COLLECTION", "stockx-links")
+        indexes = [IndexModel([("url", ASCENDING)])]
 
 
 class Audience(str, Enum):
+    """
+    The target audience for the product.
+
+    Options:
+    - Unisex
+    - Men
+    - Women
+    - Boys
+    - Girls
+    - Kids
+    - Toddler
+    """
+
     UNISEX = "Unisex"
     MEN = "Men"
     WOMEN = "Women"
@@ -36,30 +43,51 @@ class Audience(str, Enum):
 
 
 class Links(BaseModel):
-    retail: str | None = None  # Link to the retail page
-    stockx: str | None = None  # Link to the StockX listing
-    goat: str | None = None  # Link to the GOAT listing
-    stadium_goods: str | None = None  # Link to the Stadium Goods listing
+    """
+    Links to the product on various sites.
+
+    Attributes:
+    - retail (Optional[str]): Link to the retail page.
+    - stockx (Optional[str]): Link to the StockX listing.
+    - goat (Optional[str]): Link to the GOAT listing.
+    - stadium_goods (Optional[str]): Link to the Stadium Goods listing.
+    - flight_club (Optional[str]): Link to the Flight Club listing.
+    """
+
+    retail: Optional[str] = None
+    stockx: Optional[str] = None
+    goat: Optional[str] = None
+    stadium_goods: Optional[str] = None
+    flight_club: Optional[str] = None
 
 
 class Prices(BaseModel):
-    retail: float | None = None  # The brand's price / MSRP
-    stockx: float | dict | list | None = None  # Current price on stockX
-    goat: float | dict | list | None = None  # Current price on GOAT
-    stadium_goods: float | dict | list | None = (
-        None  # Prices on Stadium Goods (per-size pricing)
-    )
+    """
+    Prices for the product on various sites.
+
+    Attributes:
+    - retail (Optional[float]): The brand's price / MSRP.
+    - stockx (Optional[float]): Current price on StockX.
+    - goat (Optional[float]): Current price on GOAT.
+    - stadium_goods (Optional[Union[float, dict, list]]): Prices on Stadium Goods (per-size pricing).
+    - flight_club (Optional[float]): Current price on Flight Club.
+    """
+
+    retail: Optional[float] = None
+    stockx: Optional[Any] = None
+    goat: Optional[Any] = None
+    stadium_goods: Optional[Any] = None
+    flight_club: Optional[Any] = None
 
 
 class Images(BaseModel):
-    original: str | None = None  # Link to the head-on, full size image
-    alternateAngles: List[str] | None = (
-        None  # Links to other angles of the product, if available
-    )
+    """
+    Various images of the product.
 
+    Attributes:
+    - original (Optional[str]): Link to the default, full size image.
+    - alternateAngles (Optional[List[str]]): Links to other angles of the product, if available.
+    """
 
-class Sizes(BaseModel):
-    # sizes stores all available sizes converted to US Men's.
-    # Methods are provided for converting to other sizes.
-    # If a size is not available, it is not included in the list.
-    sizes: List[str] | None = None
+    original: Optional[str] = None
+    alternateAngles: Optional[List[str]] = None
