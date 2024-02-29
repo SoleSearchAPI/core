@@ -47,9 +47,7 @@ class Audience(str, Enum):
     UNISEX = "Unisex"
     MEN = "Men"
     WOMEN = "Women"
-    BOYS = "Boys"
-    GIRLS = "Girls"
-    KIDS = "Kids"
+    YOUTH = "Youth"
     TODDLER = "Toddler"
 
 
@@ -65,11 +63,11 @@ class Links(BaseModel):
     - flight_club (Optional[str]): Link to the Flight Club listing.
     """
 
-    retail: Optional[str] = None
-    stockx: Optional[str] = None
-    goat: Optional[str] = None
-    stadium_goods: Optional[str] = None
-    flight_club: Optional[str] = None
+    retail: Optional[str] = ""
+    stockx: Optional[str] = ""
+    goat: Optional[str] = ""
+    stadium_goods: Optional[str] = ""
+    flight_club: Optional[str] = ""
 
 
 class Prices(BaseModel):
@@ -100,5 +98,5 @@ class Images(BaseModel):
     - alternateAngles (Optional[List[str]]): Links to other angles of the product, if available.
     """
 
-    original: Optional[str] = None
-    alternateAngles: Optional[List[str]] = None
+    original: Optional[str] = ""
+    alternateAngles: Optional[List[str]] = []
