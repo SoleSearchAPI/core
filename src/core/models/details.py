@@ -49,6 +49,7 @@ class Audience(str, Enum):
     WOMEN = "Women"
     YOUTH = "Youth"
     TODDLER = "Toddler"
+    UNKNOWN = ""
 
 
 class Links(BaseModel):
