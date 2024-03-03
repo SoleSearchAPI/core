@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import List, Optional
 
 from beanie import Document
-from pymongo import ASCENDING, DESCENDING, IndexModel
+from pymongo import ASCENDING, DESCENDING, TEXT, IndexModel
 
 from core.models.details import Audience, Images, Links, Prices
 
@@ -54,9 +54,14 @@ class Sneaker(Document):
         name = "sneakers"
         keep_nulls = True
         indexes = [
-            IndexModel([("sku", DESCENDING)]),
-            IndexModel([("stockxId", DESCENDING)]),
-            IndexModel([("stadiumGoodsId", DESCENDING)]),
+            IndexModel([("sku", TEXT)]),
+            IndexModel([("stockxId", TEXT)]),
+            IndexModel([("stadiumGoodsId", TEXT)]),
+            IndexModel([("releaseDate", DESCENDING)]),
             IndexModel([("links", ASCENDING)]),
-            IndexModel([("links.stockx", ASCENDING)]),
+            IndexModel([("links.stockx", TEXT)]),
+            IndexModel([("brand", TEXT)]),
+            IndexModel([("name", TEXT)]),
+            IndexModel([("colorway", TEXT)]),
+            IndexModel([("audience", TEXT)]),
         ]
