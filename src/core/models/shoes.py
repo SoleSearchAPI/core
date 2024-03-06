@@ -73,7 +73,7 @@ class Sneaker(Document):
 
 
 class SneakerView(BaseModel):
-    productId: PydanticObjectId = Field(alias="_id")
+    productId: PydanticObjectId
     brand: Optional[str] = ""
     sku: Optional[str] = ""
     name: Optional[str] = ""
@@ -90,7 +90,7 @@ class SneakerView(BaseModel):
 
     class Settings:
         projection = {
-            "_id": 1,
+            "productId": "$_id",
             "brand": 1,
             "sku": 1,
             "name": 1,
