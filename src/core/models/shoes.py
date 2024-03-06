@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import List, Optional
 
 from beanie import Document
+from pydantic import BaseModel
 from pymongo import ASCENDING, DESCENDING, TEXT, IndexModel
 
 from core.models.details import Audience, Images, Links, Prices
@@ -65,3 +66,34 @@ class Sneaker(Document):
             IndexModel([("colorway", TEXT)]),
             IndexModel([("audience", TEXT)]),
         ]
+
+
+class SneakerView(BaseModel):
+    productId: str
+    brand: Optional[str] = ""
+    sku: Optional[str] = ""
+    name: Optional[str] = ""
+    colorway: Optional[str] = ""
+    audience: Optional[Audience] = Audience.UNISEX
+    releaseDate: Optional[datetime | str | None] = None
+    images: Optional[Images] = Images()
+    links: Optional[Links] = Links()
+    prices: Optional[Prices] = Prices()
+    sizes: Optional[List[float]] = []
+    description: Optional[str] = ""
+
+    class Settings:
+        projection = {
+            "productId": "$_id",
+            "brand": 1,
+            "sku": 1,
+            "name": 1,
+            "colorway": 1,
+            "audience": 1,
+            "releaseDate": 1,
+            "images": 1,
+            "links": 1,
+            "prices": 1,
+            "sizes": 1,
+            "description": 1,
+        }
