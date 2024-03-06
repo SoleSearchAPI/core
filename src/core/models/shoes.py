@@ -3,7 +3,7 @@ from typing import List, Optional
 
 from beanie import Document
 from beanie.odm.fields import PydanticObjectId
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 from pymongo import ASCENDING, DESCENDING, TEXT, IndexModel
 
 from core.models.details import Audience, Images, Links, Prices
@@ -85,6 +85,8 @@ class SneakerView(BaseModel):
     prices: Optional[Prices] = Prices()
     sizes: Optional[List[float]] = []
     description: Optional[str] = ""
+
+    model_config = ConfigDict(populate_by_name=True)
 
     class Settings:
         projection = {
