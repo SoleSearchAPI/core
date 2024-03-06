@@ -2,7 +2,8 @@ from datetime import datetime
 from typing import List, Optional
 
 from beanie import Document
-from pydantic import BaseModel
+from beanie.odm.fields import PydanticObjectId
+from pydantic import BaseModel, Field
 from pymongo import ASCENDING, DESCENDING, TEXT, IndexModel
 
 from core.models.details import Audience, Images, Links, Prices
@@ -72,7 +73,7 @@ class Sneaker(Document):
 
 
 class SneakerView(BaseModel):
-    productId: str
+    productId: PydanticObjectId = Field(alias="_id")
     brand: Optional[str] = ""
     sku: Optional[str] = ""
     name: Optional[str] = ""
@@ -87,7 +88,7 @@ class SneakerView(BaseModel):
 
     class Settings:
         projection = {
-            "productId": "$_id",
+            "_id": 1,
             "brand": 1,
             "sku": 1,
             "name": 1,
