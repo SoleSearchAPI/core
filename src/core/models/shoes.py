@@ -55,16 +55,19 @@ class Sneaker(Document):
         name = "sneakers"
         keep_nulls = True
         indexes = [
-            IndexModel([("sku", TEXT)]),
-            IndexModel([("stockxId", TEXT)]),
-            IndexModel([("stadiumGoodsId", TEXT)]),
+            IndexModel(
+                [
+                    ("sku", TEXT),
+                    ("stockxId", TEXT),
+                    ("stadiumGoodsId", TEXT),
+                    ("brand", TEXT),
+                    ("name", TEXT),
+                    ("colorway", TEXT),
+                    ("audience", TEXT),
+                ]
+            ),
             IndexModel([("releaseDate", DESCENDING)]),
-            IndexModel([("links", ASCENDING)]),
-            IndexModel([("links.stockx", TEXT)]),
-            IndexModel([("brand", TEXT)]),
-            IndexModel([("name", TEXT)]),
-            IndexModel([("colorway", TEXT)]),
-            IndexModel([("audience", TEXT)]),
+            IndexModel([("links.stockx", ASCENDING)]),
         ]
 
 
