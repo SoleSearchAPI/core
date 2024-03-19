@@ -12,7 +12,7 @@ class SiteMapLink(Document):
     url: str
     lastSeenOnSitemap: datetime
     scraped: bool
-    isSneaker: Optional[bool] = None
+    ignored: Optional[bool] = None
     error: Optional[bool] = None
 
     class Settings:
@@ -22,10 +22,10 @@ class SiteMapLink(Document):
             IndexModel(
                 [
                     ("scraped", ASCENDING),
-                    ("isSneaker", ASCENDING),
+                    ("ignored", ASCENDING),
                     ("error", ASCENDING),
                 ],
-                name="scraped_1_isSneaker_1_error_1",
+                name="scraped_1_ignored_1_error_1",
             ),
         ]
 
