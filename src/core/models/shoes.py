@@ -45,11 +45,11 @@ class Sneaker(Document):
     prices: Optional[Prices] = Prices()
     sizes: Optional[List[float]] = []
     description: Optional[str] = ""
-
     dateAdded: Optional[datetime] = datetime.utcnow()
     lastScraped: Optional[datetime] = datetime.utcnow()
     stadiumGoodsId: Optional[str] = ""
     stockxId: Optional[str] = ""
+    tsdbId: Optional[str] = ""
     source: Optional[str] = ""
 
     class Settings:
