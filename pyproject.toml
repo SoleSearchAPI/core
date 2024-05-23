@@ -7,10 +7,8 @@ name = "core"
 dynamic = ["version"]
 requires-python = ">=3.12"
 description = "Core package for SoleSearch"
-authors = [
-  { name="Peter Rauscher", email="peter@peterrauscher.com" },
-]
-dependencies = ["sgqlc", "beanie"]
+authors = [{ name = "Peter Rauscher", email = "peter@peterrauscher.com" }]
+dependencies = ["SQLAlchemy"]
 
 [tool.hatch.version]
 path = "src/core/__about__.py"
