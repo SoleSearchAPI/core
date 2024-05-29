@@ -1,3 +1,5 @@
+from typing import Optional
+
 from sqlalchemy import (
     BigInteger,
     Boolean,
@@ -37,6 +39,17 @@ class Sneaker(Base):
     images = relationship("Image", backref="sneaker")
     sneaker_sizes = relationship("SneakerSize", backref="sneaker")
 
+    def merge(self, other: Optional["Sneaker"] = None):
+        if other:
+            stockx_images = [
+                img for img in other.images if img.platform == Platform.STOCKX
+            ]
+            if stockx_images:
+                self.images = stockx_images
+
+            if len(other.colorway) > len(self.colorway):
+                self.colorway = other.colorway
+
 
 class Link(Base):
     __tablename__ = "link"
@@ -58,15 +71,37 @@ class Price(Base):
     amount = Column(BigInteger, nullable=False)
     size = relationship("Size", backref="prices")
 
+    def merge(self, target):
+        if self.platform == target.platform:
+            if target.amount > 0:
+                # TODO: Add price history record in SQL?
+                self.amount = target.amount
+
 
 class Image(Base):
     __tablename__ = "image"
 
     id = Column(Integer, primary_key=True)
     sneaker_id = Column(Integer, ForeignKey("sneaker.id"), nullable=False)
-    platform = Column(Enum(Platform))
-    position = Column(Integer)
+    platform = Column(Enum(Platform), nullable=False)
+    is_primary = Column(Boolean)
     url = Column(Text, nullable=False)
+
+    def merge(self, target):
+        if target.url and target.platform:
+            for preference in [
+                Platform.stockx,
+                Platform.goat,
+                Platform.retail,
+                Platform.stadium_goods,
+            ]:
+                if preference == self.platform:
+                    break
+                if preference == target.platform:
+                    self.url = target.url
+                    self.platform = target.platform
+                    break
+            # TODO: save the changes to the current model
 
 
 class Size(Base):

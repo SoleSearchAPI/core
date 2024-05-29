@@ -49,7 +49,7 @@ CREATE TABLE "image" (
   "id" integer PRIMARY KEY,
   "sneaker_id" integer NOT NULL,
   "platform" platform,
-  "position" integer,
+  "is_primary" boolean,
   "url" text NOT NULL
 );
 
